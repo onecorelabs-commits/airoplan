@@ -1,0 +1,3600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pia's Airplane Plan - Your Journey, Our Responsibility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0b3d91; /* PIA blue color */
+            --secondary-color: #f97316;
+            --accent-color: #3b82f6;
+            --text-color: #1f2937;
+            --light-bg: #f3f4f6;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #0b3d91 0%, #1e40af 100%);
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --pia-green: #00a652;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--pia-green);
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pia-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--pia-green);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            margin-top: 10px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--light-bg);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menu-toggle i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(11, 61, 145, 0.8), rgba(11, 61, 145, 0.8)), url('https://picsum.photos/seed/airplane/1920/1080.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--pia-green);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #008c45;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: var(--white);
+            padding: 50px 0;
+            position: relative;
+            margin-top: -80px;
+            z-index: 10;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            background: var(--light-bg);
+            border: none;
+            padding: 12px 25px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .tab-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-control.error {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .date-input {
+            position: relative;
+        }
+
+        .date-input i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--pia-green);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--pia-green);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .service-content .btn {
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Fleet Section - Enhanced */
+        .fleet {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .fleet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .fleet-filters {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            background: var(--light-bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .filter-btn:hover {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .fleet-slider {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .fleet-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .fleet-card {
+            min-width: 100%;
+            padding: 0 15px;
+        }
+
+        .fleet-card-content {
+            display: flex;
+            background: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+            height: 400px;
+        }
+
+        .fleet-card-content:hover {
+            transform: scale(1.02);
+        }
+
+        .fleet-img {
+            flex: 1;
+            max-width: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fleet-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .fleet-card-content:hover .fleet-img img {
+            transform: scale(1.05);
+        }
+
+        .fleet-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--pia-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fleet-info {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .fleet-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .fleet-info p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .fleet-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .spec-item i {
+            color: var(--pia-green);
+            margin-right: 10px;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .slider-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: var(--pia-green);
+            transform: scale(1.1);
+        }
+
+        .fleet-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .fleet-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fleet-dot.active {
+            background: var(--pia-green);
+            transform: scale(1.2);
+        }
+
+        .fleet-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .fleet-stat-card {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .fleet-stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fleet-stat-card i {
+            font-size: 2rem;
+            color: var(--pia-green);
+            margin-bottom: 10px;
+        }
+
+        .fleet-stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .fleet-stat-label {
+            color: #666;
+        }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .destination-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .destination-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--white);
+            padding: 20px;
+            transition: background 0.3s;
+        }
+
+        .destination-card:hover .destination-info {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .destination-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .destination-info p {
+            font-size: 0.9rem;
+        }
+
+        .destination-info .price-tag {
+            display: inline-block;
+            background: var(--pia-green);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* About Us Section */
+        .about {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .about-text h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-item i {
+            color: var(--pia-green);
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-item i {
+            font-size: 3rem;
+            color: var(--pia-green);
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .member-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .member-info p {
+            color: var(--pia-green);
+            margin-bottom: 15px;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .member-social a {
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .member-social a:hover {
+            color: var(--pia-green);
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--pia-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--pia-green);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--white);
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: #666;
+        }
+
+        .timeline-year {
+            position: absolute;
+            top: 20px;
+            font-weight: bold;
+            color: var(--pia-green);
+        }
+
+        .left .timeline-year {
+            right: -100px;
+        }
+
+        .right .timeline-year {
+            left: -100px;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .value-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--pia-green);
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-success {
+            background: var(--success-color);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--pia-green);
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #e5e7eb;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #e5e7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--pia-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .newsletter-form button {
+            padding: 10px 15px;
+            background: var(--pia-green);
+            color: var(--white);
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #008c45;
+        }
+
+        /* Share Button */
+        .share-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--pia-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .share-btn:hover {
+            background: #008c45;
+            transform: scale(1.1);
+        }
+
+        .share-options {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            display: none;
+            z-index: 100;
+        }
+
+        .share-options.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .share-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .share-option:hover {
+            background: var(--light-bg);
+        }
+
+        .share-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .share-option i {
+            font-size: 1.2rem;
+            margin-right: 10px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .share-option.facebook i {
+            color: #1877f2;
+        }
+
+        .share-option.twitter i {
+            color: #1da1f2;
+        }
+
+        .share-option.linkedin i {
+            color: #0077b5;
+        }
+
+        .share-option.whatsapp i {
+            color: #25d366;
+        }
+
+        .share-option.email i {
+            color: var(--error-color);
+        }
+
+        .share-option.link i {
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 0;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            background: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Service Details Modal */
+        .service-details {
+            display: block;
+        }
+
+        .service-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .service-details ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .service-details ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .service-details ul li i {
+            color: var(--pia-green);
+            margin-right: 10px;
+        }
+
+        .price-box {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .price-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            font-size: 1.5rem;
+            color: var(--pia-green);
+            font-weight: bold;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-container::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .left .timeline-year, .right .timeline-year {
+                position: relative;
+                right: auto;
+                left: auto;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+
+            .fleet-card-content {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .fleet-img {
+                max-width: 100%;
+                height: 200px;
+            }
+
+            .fleet-filters {
+                flex-wrap: wrap;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn-outline {
+                display: block;
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <i class="fas fa-plane"></i>
+                <span>Pia's Airplane Plan</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#services">Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#domestic">Domestic Flights</a>
+                        <a href="#international">International Flights</a>
+                        <a href="#cargo">Cargo Services</a>
+                        <a href="#charter">Charter Services</a>
+                    </div>
+                </li>
+                <li><a href="#fleet">Fleet</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Your Journey to the Skies</h1>
+            <p>Experience a safe and comfortable journey with Pia's Airplane Plan</p>
+            <div>
+                <a href="#booking" class="btn">Book Now</a>
+                <a href="#about" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <div class="booking-tabs">
+                <button class="tab-btn active" data-tab="oneway">One Way</button>
+                <button class="tab-btn" data-tab="roundtrip">Round Trip</button>
+                <button class="tab-btn" data-tab="multicity">Multi-City</button>
+            </div>
+            <form class="booking-form" id="bookingForm">
+                <div class="form-group">
+                    <label for="from">From</label>
+                    <input type="text" id="from" class="form-control" placeholder="City or Airport" required>
+                    <span class="error-message">Please enter departure city</span>
+                </div>
+                <div class="form-group">
+                    <label for="to">To</label>
+                    <input type="text" id="to" class="form-control" placeholder="City or Airport" required>
+                    <span class="error-message">Please enter destination city</span>
+                </div>
+                <div class="form-group">
+                    <label for="departure">Departure Date</label>
+                    <div class="date-input">
+                        <input type="date" id="departure" class="form-control" required>
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <span class="error-message">Please select departure date</span>
+                </div>
+                <div class="form-group" id="returnGroup" style="display: none;">
+                    <label for="return">Return Date</label>
+                    <div class="date-input">
+                        <input type="date" id="return" class="form-control">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <span class="error-message">Please select return date</span>
+                </div>
+                <div class="form-group">
+                    <label for="passengers">Passengers</label>
+                    <select id="passengers" class="form-control">
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5+">5+ Passengers</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <select id="class" class="form-control">
+                        <option value="economy">Economy</option>
+                        <option value="premium">Premium Economy</option>
+                        <option value="business">Business</option>
+                        <option value="first">First</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Search</button>
+                </div>
+            </form>
+            <div class="spinner" id="bookingSpinner"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Services</h2>
+                <p>Special services to make your journey even better</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in" data-service="domestic">
+                    <span class="badge">Popular</span>
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/domestic/400/300.jpg" alt="Domestic Flights">
+                    </div>
+                    <div class="service-content">
+                        <h3>Domestic Flights</h3>
+                        <p>Convenient and affordable flights between major cities in Pakistan. We promise you a comfortable journey.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in" data-service="international">
+                    <span class="badge">Premium</span>
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/international/400/300.jpg" alt="International Flights">
+                    </div>
+                    <div class="service-content">
+                        <h3>International Flights</h3>
+                        <p>Reach major destinations around the world. Our international flights provide you with world-class services.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in" data-service="cargo">
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/cargo/400/300.jpg" alt="Cargo Services">
+                    </div>
+                    <div class="service-content">
+                        <h3>Cargo Services</h3>
+                        <p>Our reliable cargo services to deliver your goods safely and on time to their destination.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in" data-service="charter">
+                    <span class="badge">Exclusive</span>
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/charter/400/300.jpg" alt="Charter Services">
+                    </div>
+                    <div class="service-content">
+                        <h3>Charter Services</h3>
+                        <p>Our customized charter services for personal or business travel. Flights according to your convenience.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in" data-service="lounge">
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/lounge/400/300.jpg" alt="Lounge Services">
+                    </div>
+                    <div class="service-content">
+                        <h3>Lounge Services</h3>
+                        <p>Relax and refresh before your journey. Get world-class amenities in our premium lounges.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in" data-service="insurance">
+                    <div class="service-img">
+                        <img src="https://picsum.photos/seed/travel/400/300.jpg" alt="Travel Insurance">
+                    </div>
+                    <div class="service-content">
+                        <h3>Travel Insurance</h3>
+                        <p>Secure your journey with our travel insurance plans that protect you from all possible risks.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section - Enhanced -->
+    <section class="fleet" id="fleet">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Fleet</h2>
+                <p>Modern aircraft ensuring your safety and comfort</p>
+            </div>
+            
+            <div class="fleet-header fade-in">
+                <div class="fleet-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th"></i> All Aircraft
+                    </button>
+                    <button class="filter-btn" data-filter="narrowbody">
+                        <i class="fas fa-plane"></i> Narrow Body
+                    </button>
+                    <button class="filter-btn" data-filter="widebody">
+                        <i class="fas fa-plane-departure"></i> Wide Body
+                    </button>
+                    <button class="filter-btn" data-filter="regional">
+                        <i class="fas fa-plane-arrival"></i> Regional
+                    </button>
+                </div>
+            </div>
+            
+            <div class="fleet-slider fade-in">
+                <div class="fleet-container" id="fleetContainer">
+                    <!-- Airbus A320 -->
+                    <div class="fleet-card" data-category="narrowbody">
+                        <div class="fleet-card-content" data-aircraft="A320">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/airbus-a320/600/400.jpg" alt="Airbus A320">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-star"></i> Most Popular
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>Airbus A320</h3>
+                                <p>Our most popular aircraft for domestic and regional routes, combining efficiency with comfort.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>180 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>840 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>6,100 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Boeing 777 -->
+                    <div class="fleet-card" data-category="widebody">
+                        <div class="fleet-card-content" data-aircraft="B777">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/boeing-777/600/400.jpg" alt="Boeing 777">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-globe"></i> Long Haul
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>Boeing 777</h3>
+                                <p>Reliable choice for our long-haul international flights with exceptional range and comfort.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>314 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>905 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>15,844 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Airbus A350 -->
+                    <div class="fleet-card" data-category="widebody">
+                        <div class="fleet-card-content" data-aircraft="A350">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/airbus-a350/600/400.jpg" alt="Airbus A350">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-leaf"></i> Fuel Efficient
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>Airbus A350</h3>
+                                <p>Our flagship aircraft with the latest technology and superior fuel efficiency.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>325 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>903 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>15,000 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Boeing 737 -->
+                    <div class="fleet-card" data-category="narrowbody">
+                        <div class="fleet-card-content" data-aircraft="B737">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/boeing-737/600/400.jpg" alt="Boeing 737">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-bolt"></i> Fast Turnaround
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>Boeing 737</h3>
+                                <p>Workhorse of our fleet, perfect for short to medium-haul routes with excellent reliability.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>189 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>840 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>5,925 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ATR 72 -->
+                    <div class="fleet-card" data-category="regional">
+                        <div class="fleet-card-content" data-aircraft="ATR72">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/atr-72/600/400.jpg" alt="ATR 72">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-map-marked-alt"></i> Regional
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>ATR 72</h3>
+                                <p>Perfect for connecting smaller cities with our main hubs, offering efficient regional service.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>70 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>506 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>1,665 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Boeing 787 Dreamliner -->
+                    <div class="fleet-card" data-category="widebody">
+                        <div class="fleet-card-content" data-aircraft="B787">
+                            <div class="fleet-img">
+                                <img src="https://picsum.photos/seed/boeing-787/600/400.jpg" alt="Boeing 787 Dreamliner">
+                                <div class="fleet-badge">
+                                    <i class="fas fa-cloud"></i> Dreamliner
+                                </div>
+                            </div>
+                            <div class="fleet-info">
+                                <h3>Boeing 787 Dreamliner</h3>
+                                <p>Revolutionary aircraft offering unparalleled passenger comfort with advanced cabin features.</p>
+                                <div class="fleet-specs">
+                                    <div class="spec-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>290 Passengers</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        <span>903 km/h</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-route"></i>
+                                        <span>14,140 km</span>
+                                    </div>
+                                    <div class="spec-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>2 Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevFleet"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="nextFleet"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <div class="fleet-dots" id="fleetDots">
+                    <!-- Dots will be generated dynamically -->
+                </div>
+            </div>
+            
+            <div class="fleet-stats fade-in">
+                <div class="fleet-stat-card">
+                    <i class="fas fa-plane"></i>
+                    <div class="fleet-stat-number">42</div>
+                    <div class="fleet-stat-label">Total Aircraft</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <i class="fas fa-users"></i>
+                    <div class="fleet-stat-number">8,500</div>
+                    <div class="fleet-stat-label">Total Seats</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <i class="fas fa-globe"></i>
+                    <div class="fleet-stat-number">150+</div>
+                    <div class="fleet-stat-label">Destinations</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <i class="fas fa-clock"></i>
+                    <div class="fleet-stat-number">95%</div>
+                    <div class="fleet-stat-label">On-Time Performance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinations">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Popular Destinations</h2>
+                <p>Travel to the most beautiful places around the world</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card fade-in" data-destination="dubai" data-price="200">
+                    <img src="https://picsum.photos/seed/dubai/400/300.jpg" alt="Dubai">
+                    <div class="destination-info">
+                        <h3>Dubai</h3>
+                        <p>City of Gold</p>
+                        <span class="price-tag">From $200</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="singapore" data-price="250">
+                    <img src="https://picsum.photos/seed/singapore/400/300.jpg" alt="Singapore">
+                    <div class="destination-info">
+                        <h3>Singapore</h3>
+                        <p>Lion City</p>
+                        <span class="price-tag">From $250</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="london" data-price="450">
+                    <img src="https://picsum.photos/seed/london/400/300.jpg" alt="London">
+                    <div class="destination-info">
+                        <h3>London</h3>
+                        <p>Historic Capital</p>
+                        <span class="price-tag">From $450</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="newyork" data-price="550">
+                    <img src="https://picsum.photos/seed/newyork/400/300.jpg" alt="New York">
+                    <div class="destination-info">
+                        <h3>New York</h3>
+                        <p>Big Apple</p>
+                        <span class="price-tag">From $550</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="tokyo" data-price="380">
+                    <img src="https://picsum.photos/seed/tokyo/400/300.jpg" alt="Tokyo">
+                    <div class="destination-info">
+                        <h3>Tokyo</h3>
+                        <p>Modern Metropolis</p>
+                        <span class="price-tag">From $380</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="paris" data-price="420">
+                    <img src="https://picsum.photos/seed/paris/400/300.jpg" alt="Paris">
+                    <div class="destination-info">
+                        <h3>Paris</h3>
+                        <p>City of Love</p>
+                        <span class="price-tag">From $420</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="sydney" data-price="500">
+                    <img src="https://picsum.photos/seed/sydney/400/300.jpg" alt="Sydney">
+                    <div class="destination-info">
+                        <h3>Sydney</h3>
+                        <p>Harbor City</p>
+                        <span class="price-tag">From $500</span>
+                    </div>
+                </div>
+                <div class="destination-card fade-in" data-destination="bali" data-price="280">
+                    <img src="https://picsum.photos/seed/bali/400/300.jpg" alt="Bali">
+                    <div class="destination-info">
+                        <h3>Bali</h3>
+                        <p>Island Paradise</p>
+                        <span class="price-tag">From $280</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>About Us</h2>
+                <p>Discover our story and commitment to excellence</p>
+            </div>
+            
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <h2>Welcome to Pia's Airplane Plan</h2>
+                    <p>Founded in 2010, Pia's Airplane Plan has grown from a small regional airline to one of the most trusted names in aviation. Our journey began with a simple mission: to make air travel accessible, safe, and comfortable for everyone.</p>
+                    <p>Over the past decade, we've carried millions of passengers across continents, connecting families, businesses, and dreams. Our commitment to excellence has earned us numerous awards and the trust of travelers worldwide.</p>
+                    <p>Today, we operate a modern fleet of aircraft, serve over 100 destinations, and continue to innovate in everything we do - from booking technology to in-flight experiences.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Safety First</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-clock"></i>
+                            <span>On-Time Performance</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Customer Care</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-globe"></i>
+                            <span>Global Network</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://picsum.photos/seed/aboutus/600/400.jpg" alt="About Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item fade-in">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number" data-target="10000000">0</div>
+                    <div class="stat-label">Happy Passengers</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <i class="fas fa-plane"></i>
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Aircraft Fleet</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Destinations</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <i class="fas fa-award"></i>
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Leadership Team</h2>
+                <p>Meet the people behind our success</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member fade-in" data-member="ceo">
+                    <div class="member-image">
+                        <img src="https://picsum.photos/seed/ceo/300/300.jpg" alt="CEO">
+                    </div>
+                    <div class="member-info">
+                        <h3>Pia Anderson</h3>
+                        <p>Chief Executive Officer</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member fade-in" data-member="coo">
+                    <div class="member-image">
+                        <img src="https://picsum.photos/seed/coo/300/300.jpg" alt="COO">
+                    </div>
+                    <div class="member-info">
+                        <h3>Michael Chen</h3>
+                        <p>Chief Operating Officer</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member fade-in" data-member="cfo">
+                    <div class="member-image">
+                        <img src="https://picsum.photos/seed/cfo/300/300.jpg" alt="CFO">
+                    </div>
+                    <div class="member-info">
+                        <h3>Sarah Johnson</h3>
+                        <p>Chief Financial Officer</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member fade-in" data-member="cto">
+                    <div class="member-image">
+                        <img src="https://picsum.photos/seed/cto/300/300.jpg" alt="CTO">
+                    </div>
+                    <div class="member-info">
+                        <h3>David Kumar</h3>
+                        <p>Chief Technology Officer</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Journey</h2>
+                <p>Milestones that shaped our success</p>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2010</span>
+                        <h3>Company Founded</h3>
+                        <p>Pia's Airplane Plan was established with a vision to revolutionize air travel.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2012</span>
+                        <h3>First International Flight</h3>
+                        <p>Launched our first international route connecting New York to London.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2015</span>
+                        <h3>Fleet Expansion</h3>
+                        <p>Added 20 new aircraft to our fleet, including modern Boeing 777s.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2018</span>
+                        <h3>10 Million Passengers</h3>
+                        <p>Celebrated serving our 10 millionth passenger with special festivities.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <h3>Digital Transformation</h3>
+                        <p>Launched our new mobile app and enhanced online booking system.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <h3>Sustainability Initiative</h3>
+                        <p>Committed to carbon neutrality by 2030 with green aviation initiatives.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Core Values</h2>
+                <p>Principles that guide everything we do</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card fade-in" data-value="safety">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety</h3>
+                    <p>Safety is our top priority. We maintain the highest standards in aircraft maintenance and crew training.</p>
+                </div>
+                <div class="value-card fade-in" data-value="integrity">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We conduct business with honesty and transparency, building trust with our customers and partners.</p>
+                </div>
+                <div class="value-card fade-in" data-value="innovation">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We continuously innovate to improve our services and enhance the passenger experience.</p>
+                </div>
+                <div class="value-card fade-in" data-value="customer">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Customer Focus</h3>
+                    <p>Our customers are at the heart of everything we do. We strive to exceed their expectations.</p>
+                </div>
+                <div class="value-card fade-in" data-value="sustainability">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to reducing our environmental impact and promoting sustainable aviation.</p>
+                </div>
+                <div class="value-card fade-in" data-value="citizenship">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Citizenship</h3>
+                    <p>We believe in giving back to the communities we serve through various initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team and plan your journey</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info fade-in">
+                    <h2>Have a Question?</h2>
+                    <p>Our team is always ready to help you. Contact us for any questions or suggestions.</p>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Jinnah International Airport, Karachi, Pakistan</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+92 21-34567890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@piasairplane.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <p>Saturday - Sunday: 10:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <div class="form-success" id="contactSuccess">
+                        <i class="fas fa-check-circle"></i> Your message has been sent successfully!
+                    </div>
+                    <h3>Send Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Name</label>
+                            <input type="text" id="contactName" class="form-control" required>
+                            <span class="error-message">Please enter your name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" class="form-control" required>
+                            <span class="error-message">Please enter a valid email</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                            <span class="error-message">Please enter subject</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                            <span class="error-message">Please enter your message</span>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                    <div class="spinner" id="contactSpinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Pia's Airplane Plan</h3>
+                    <p>Your journey to the skies. We promise you a safe and comfortable journey.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#fleet">Fleet</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#domestic">Domestic Flights</a></li>
+                        <li><a href="#international">International Flights</a></li>
+                        <li><a href="#cargo">Cargo Services</a></li>
+                        <li><a href="#charter">Charter Services</a></li>
+                        <li><a href="#lounge">Lounge Services</a></li>
+                        <li><a href="#insurance">Travel Insurance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest offers and updates.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Pia's Airplane Plan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Share Button -->
+    <button class="share-btn" id="shareBtn">
+        <i class="fas fa-share-alt"></i>
+    </button>
+
+    <!-- Share Options -->
+    <div class="share-options" id="shareOptions">
+        <div class="share-option facebook" data-platform="facebook">
+            <i class="fab fa-facebook"></i>
+            <span>Facebook</span>
+        </div>
+        <div class="share-option twitter" data-platform="twitter">
+            <i class="fab fa-twitter"></i>
+            <span>Twitter</span>
+        </div>
+        <div class="share-option linkedin" data-platform="linkedin">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
+        </div>
+        <div class="share-option whatsapp" data-platform="whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </div>
+        <div class="share-option email" data-platform="email">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </div>
+        <div class="share-option link" data-platform="link">
+            <i class="fas fa-link"></i>
+            <span>Copy Link</span>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">Title</h2>
+                <div id="modalBody">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service Details Data
+        const serviceDetails = {
+            domestic: {
+                title: "Domestic Flights",
+                description: "Experience seamless travel across Pakistan with our domestic flight services.",
+                image: "https://picsum.photos/seed/domestic/800/400.jpg",
+                features: [
+                    "50+ destinations across Pakistan",
+                    "Daily flights to major cities",
+                    "Competitive pricing",
+                    "Comfortable seating",
+                    "In-flight entertainment",
+                    "Complimentary meals"
+                ],
+                price: "Starting from $50"
+            },
+            international: {
+                title: "International Flights",
+                description: "Connect with the world through our extensive international network.",
+                image: "https://picsum.photos/seed/international/800/400.jpg",
+                features: [
+                    "100+ international destinations",
+                    "Direct flights to major hubs",
+                    "Premium cabin options",
+                    "Multi-lingual crew",
+                    "Gourmet cuisine",
+                    "Lie-flat seats in Business Class"
+                ],
+                price: "Starting from $200"
+            },
+            cargo: {
+                title: "Cargo Services",
+                description: "Reliable and secure cargo transportation solutions.",
+                image: "https://picsum.photos/seed/cargo/800/400.jpg",
+                features: [
+                    "Door-to-door delivery",
+                    "Real-time tracking",
+                    "Temperature-controlled cargo",
+                    "Express delivery options",
+                    "Insurance coverage",
+                    "24/7 customer support"
+                ],
+                price: "Starting from $5/kg"
+            },
+            charter: {
+                title: "Charter Services",
+                description: "Exclusive charter flights for your special needs.",
+                image: "https://picsum.photos/seed/charter/800/400.jpg",
+                features: [
+                    "Customized schedules",
+                    "Private aircraft options",
+                    "VIP services",
+                    "Flexible routing",
+                    "On-demand availability",
+                    "Personalized catering"
+                ],
+                price: "Contact for quote"
+            },
+            lounge: {
+                title: "Lounge Services",
+                description: "Relax in our premium lounges before your flight.",
+                image: "https://picsum.photos/seed/lounge/800/400.jpg",
+                features: [
+                    "Complimentary food and beverages",
+                    "High-speed Wi-Fi",
+                    "Shower facilities",
+                    "Business center",
+                    "Quiet zones",
+                    "Kids play area"
+                ],
+                price: "$30 per entry"
+            },
+            insurance: {
+                title: "Travel Insurance",
+                description: "Comprehensive travel insurance for your peace of mind.",
+                image: "https://picsum.photos/seed/travel/800/400.jpg",
+                features: [
+                    "Medical coverage",
+                    "Trip cancellation protection",
+                    "Lost baggage compensation",
+                    "Flight delay coverage",
+                    "Emergency assistance",
+                    "24/7 helpline"
+                ],
+                price: "Starting from $10"
+            }
+        };
+
+        // Destination Details Data
+        const destinationDetails = {
+            dubai: {
+                title: "Dubai",
+                description: "Experience the luxury and innovation of Dubai, the city of gold.",
+                image: "https://picsum.photos/seed/dubai/800/400.jpg",
+                highlights: [
+                    "Burj Khalifa - World's tallest building",
+                    "Dubai Mall - Shopping paradise",
+                    "Desert Safari - Adventure experience",
+                    "Palm Jumeirah - Man-made wonder",
+                    "Gold Souk - Traditional market",
+                    "Dubai Fountain - Spectacular show"
+                ],
+                price: "From $200",
+                duration: "5-7 days recommended"
+            },
+            singapore: {
+                title: "Singapore",
+                description: "Discover the perfect blend of modernity and nature in the Lion City.",
+                image: "https://picsum.photos/seed/singapore/800/400.jpg",
+                highlights: [
+                    "Marina Bay Sands - Iconic hotel",
+                    "Gardens by the Bay - Futuristic gardens",
+                    "Sentosa Island - Fun destination",
+                    "Chinatown - Cultural experience",
+                    "Universal Studios - Theme park",
+                    "Hawker Centers - Food paradise"
+                ],
+                price: "From $250",
+                duration: "4-5 days recommended"
+            },
+            london: {
+                title: "London",
+                description: "Explore the historic capital of England with its rich heritage.",
+                image: "https://picsum.photos/seed/london/800/400.jpg",
+                highlights: [
+                    "Big Ben & Parliament - Historic landmarks",
+                    "Tower of London - Medieval fortress",
+                    "British Museum - World treasures",
+                    "Buckingham Palace - Royal residence",
+                    "London Eye - Panoramic views",
+                    "West End - Theater district"
+                ],
+                price: "From $450",
+                duration: "5-7 days recommended"
+            },
+            newyork: {
+                title: "New York",
+                description: "Experience the energy and excitement of the Big Apple.",
+                image: "https://picsum.photos/seed/newyork/800/400.jpg",
+                highlights: [
+                    "Statue of Liberty - Symbol of freedom",
+                    "Times Square - Bright lights",
+                    "Central Park - Urban oasis",
+                    "Empire State Building - Art deco icon",
+                    "Broadway - World-class shows",
+                    "Brooklyn Bridge - Engineering marvel"
+                ],
+                price: "From $550",
+                duration: "5-7 days recommended"
+            },
+            tokyo: {
+                title: "Tokyo",
+                description: "Immerse yourself in the perfect blend of tradition and technology.",
+                image: "https://picsum.photos/seed/tokyo/800/400.jpg",
+                highlights: [
+                    "Senso-ji Temple - Ancient Buddhist temple",
+                    "Tokyo Skytree - Modern observation tower",
+                    "Shibuya Crossing - Busy intersection",
+                    "Tsukiji Market - Fresh seafood",
+                    "Akihabara - Electronics district",
+                    "Cherry blossoms - Seasonal beauty"
+                ],
+                price: "From $380",
+                duration: "5-7 days recommended"
+            },
+            paris: {
+                title: "Paris",
+                description: "Fall in love with the City of Light and its romantic charm.",
+                image: "https://picsum.photos/seed/paris/800/400.jpg",
+                highlights: [
+                    "Eiffel Tower - Iron lady",
+                    "Louvre Museum - Art treasures",
+                    "Notre-Dame - Gothic cathedral",
+                    "Champs-Élysées - Famous avenue",
+                    "Montmartre - Artistic quarter",
+                    "Seine River cruise - Scenic tour"
+                ],
+                price: "From $420",
+                duration: "4-5 days recommended"
+            },
+            sydney: {
+                title: "Sydney",
+                description: "Enjoy the stunning harbor city with its iconic landmarks.",
+                image: "https://picsum.photos/seed/sydney/800/400.jpg",
+                highlights: [
+                    "Sydney Opera House - Architectural masterpiece",
+                    "Harbour Bridge - Iconic landmark",
+                    "Bondi Beach - Surfing paradise",
+                    "Royal Botanic Gardens - Urban nature",
+                    "Darling Harbour - Entertainment precinct",
+                    "Blue Mountains - Natural beauty"
+                ],
+                price: "From $500",
+                duration: "5-7 days recommended"
+            },
+            bali: {
+                title: "Bali",
+                description: "Relax in the tropical paradise known as Island of the Gods.",
+                image: "https://picsum.photos/seed/bali/800/400.jpg",
+                highlights: [
+                    "Ubud - Cultural heart",
+                    "Tanah Lot - Sea temple",
+                    "Seminyak Beach - Luxury resorts",
+                    "Rice terraces - Natural beauty",
+                    "Traditional dance - Cultural experience",
+                    "Spa treatments - Relaxation"
+                ],
+                price: "From $280",
+                duration: "5-7 days recommended"
+            }
+        };
+
+        // Fleet Details Data - Enhanced
+        const fleetDetails = {
+            A320: {
+                title: "Airbus A320",
+                description: "Our most popular aircraft for domestic and regional routes, combining efficiency with comfort.",
+                image: "https://picsum.photos/seed/airbus-a320/800/400.jpg",
+                specifications: {
+                    "Passengers": "180",
+                    "Speed": "840 km/h",
+                    "Range": "6,100 km",
+                    "Engines": "2",
+                    "Wingspan": "35.8 m",
+                    "Length": "37.6 m"
+                },
+                features: [
+                    "Comfortable leather seats",
+                    "In-flight entertainment system",
+                    "USB charging ports",
+                    "Wi-Fi connectivity",
+                    "Spacious overhead bins",
+                    "Modern cabin design"
+                ],
+                classes: {
+                    "Economy": "$200",
+                    "Business": "$500",
+                    "First": "$800"
+                },
+                routes: "Domestic and regional routes across Pakistan and neighboring countries"
+            },
+            B777: {
+                title: "Boeing 777",
+                description: "Reliable choice for our long-haul international flights with exceptional range and comfort.",
+                image: "https://picsum.photos/seed/boeing-777/800/400.jpg",
+                specifications: {
+                    "Passengers": "314",
+                    "Speed": "905 km/h",
+                    "Range": "15,844 km",
+                    "Engines": "2",
+                    "Wingspan": "60.9 m",
+                    "Length": "63.7 m"
+                },
+                features: [
+                    "Lie-flat seats in Business",
+                    "Personal entertainment screens",
+                    "Satellite phone service",
+                    "Premium cabin lighting",
+                    "Quiet cabin design",
+                    "Advanced air filtration"
+                ],
+                classes: {
+                    "Economy": "$800",
+                    "Business": "$2000",
+                    "First": "$3500"
+                },
+                routes: "Long-haul international routes to Europe, North America, and Asia"
+            },
+            A350: {
+                title: "Airbus A350",
+                description: "Our flagship aircraft with the latest technology and superior fuel efficiency.",
+                image: "https://picsum.photos/seed/airbus-a350/800/400.jpg",
+                specifications: {
+                    "Passengers": "325",
+                    "Speed": "903 km/h",
+                    "Range": "15,000 km",
+                    "Engines": "2",
+                    "Wingspan": "64.8 m",
+                    "Length": "66.8 m"
+                },
+                features: [
+                    "Next-generation cabin",
+                    "Higher humidity levels",
+                    "Lower cabin altitude",
+                    "LED mood lighting",
+                    "Larger windows",
+                    "Quieter engines"
+                ],
+                classes: {
+                    "Economy": "$900",
+                    "Business": "$2500",
+                    "First": "$4000"
+                },
+                routes: "Premium long-haul routes to major international destinations"
+            },
+            B737: {
+                title: "Boeing 737",
+                description: "Workhorse of our fleet, perfect for short to medium-haul routes with excellent reliability.",
+                image: "https://picsum.photos/seed/boeing-737/800/400.jpg",
+                specifications: {
+                    "Passengers": "189",
+                    "Speed": "840 km/h",
+                    "Range": "5,925 km",
+                    "Engines": "2",
+                    "Wingspan": "35.9 m",
+                    "Length": "42.1 m"
+                },
+                features: [
+                    "Fuel-efficient engines",
+                    "Advanced winglets",
+                    "Modern avionics",
+                    "Comfortable cabin",
+                    "Quick turnaround time",
+                    "Proven reliability"
+                ],
+                classes: {
+                    "Economy": "$150",
+                    "Business": "$400"
+                },
+                routes: "Domestic routes and short international flights within South Asia"
+            },
+            ATR72: {
+                title: "ATR 72",
+                description: "Perfect for connecting smaller cities with our main hubs, offering efficient regional service.",
+                image: "https://picsum.photos/seed/atr-72/800/400.jpg",
+                specifications: {
+                    "Passengers": "70",
+                    "Speed": "506 km/h",
+                    "Range": "1,665 km",
+                    "Engines": "2",
+                    "Wingspan": "27.0 m",
+                    "Length": "27.2 m"
+                },
+                features: [
+                    "Short runway capability",
+                    "Low operating costs",
+                    "Comfortable cabin",
+                    "Excellent visibility",
+                    "Quiet operation",
+                    "Regional connectivity"
+                ],
+                classes: {
+                    "Economy": "$80"
+                },
+                routes: "Regional routes connecting smaller cities in Pakistan"
+            },
+            B787: {
+                title: "Boeing 787 Dreamliner",
+                description: "Revolutionary aircraft offering unparalleled passenger comfort with advanced cabin features.",
+                image: "https://picsum.photos/seed/boeing-787/800/400.jpg",
+                specifications: {
+                    "Passengers": "290",
+                    "Speed": "903 km/h",
+                    "Range": "14,140 km",
+                    "Engines": "2",
+                    "Wingspan": "60.1 m",
+                    "Length": "63.0 m"
+                },
+                features: [
+                    "Larger windows with dimmable glass",
+                    "Higher cabin pressure",
+                    "Lower cabin altitude",
+                    "Cleaner air system",
+                    "LED mood lighting",
+                    "Reduced jet lag"
+                ],
+                classes: {
+                    "Economy": "$850",
+                    "Business": "$2200",
+                    "First": "$3800"
+                },
+                routes: "Ultra long-haul routes to North America, Europe, and Australia"
+            }
+        };
+
+        // Team Member Details
+        const teamDetails = {
+            ceo: {
+                name: "Pia Anderson",
+                role: "Chief Executive Officer",
+                image: "https://picsum.photos/seed/ceo/800/400.jpg",
+                bio: "Pia founded the company in 2010 with a vision to make air travel accessible to everyone. With over 20 years of experience in aviation, she leads our company with passion and innovation.",
+                achievements: [
+                    "Aviation Leader of the Year 2022",
+                    "Forbes 30 Most Powerful Women in Aviation",
+                    "MIT Sloan MBA"
+                ],
+                expertise: [
+                    "Strategic Planning",
+                    "Aviation Industry Leadership",
+                    "Business Development",
+                    "Team Building"
+                ]
+            },
+            coo: {
+                name: "Michael Chen",
+                role: "Chief Operating Officer",
+                image: "https://picsum.photos/seed/coo/800/400.jpg",
+                bio: "Michael oversees all operational aspects of our airline. His expertise in logistics and operations has helped us achieve industry-leading on-time performance.",
+                achievements: [
+                    "15+ years in aviation operations",
+                    "Former Delta Airlines executive",
+                    "Six Sigma Black Belt certified"
+                ],
+                expertise: [
+                    "Operations Management",
+                    "Process Optimization",
+                    "Quality Control",
+                    "Team Leadership"
+                ]
+            },
+            cfo: {
+                name: "Sarah Johnson",
+                role: "Chief Financial Officer",
+                image: "https://picsum.photos/seed/cfo/800/400.jpg",
+                bio: "Sarah manages our financial strategy and ensures sustainable growth. Her financial acumen has been crucial in our expansion and profitability.",
+                achievements: [
+                    "CFA Charterholder",
+                    "Former Goldman Sachs VP",
+                    "Wharton MBA"
+                ],
+                expertise: [
+                    "Financial Planning",
+                    "Investment Strategy",
+                    "Risk Management",
+                    "Corporate Finance"
+                ]
+            },
+            cto: {
+                name: "David Kumar",
+                role: "Chief Technology Officer",
+                image: "https://picsum.photos/seed/cto/800/400.jpg",
+                bio: "David leads our digital transformation initiatives. He's passionate about using technology to enhance the passenger experience and operational efficiency.",
+                achievements: [
+                    "Former Amazon Web Services architect",
+                    "20+ patents in aviation technology",
+                    "Stanford PhD in Computer Science"
+                ],
+                expertise: [
+                    "Digital Innovation",
+                    "Cloud Architecture",
+                    "AI Implementation",
+                    "System Integration"
+                ]
+            }
+        };
+
+        // Value Details Data
+        const valueDetails = {
+            safety: {
+                title: "Safety",
+                description: "Safety is our top priority. We maintain the highest standards in aircraft maintenance and crew training.",
+                image: "https://picsum.photos/seed/safety/800/400.jpg",
+                commitments: [
+                    "Regular aircraft maintenance checks",
+                    "Highly trained and certified crew",
+                    "Advanced safety systems",
+                    "Emergency response protocols",
+                    "Continuous safety training",
+                    "Industry-leading safety record"
+                ]
+            },
+            integrity: {
+                title: "Integrity",
+                description: "We conduct business with honesty and transparency, building trust with our customers and partners.",
+                image: "https://picsum.photos/seed/integrity/800/400.jpg",
+                commitments: [
+                    "Transparent pricing policies",
+                    "Honest communication",
+                    "Ethical business practices",
+                    "Accountability in all operations",
+                    "Fair treatment of employees",
+                    "Respect for all stakeholders"
+                ]
+            },
+            innovation: {
+                title: "Innovation",
+                description: "We continuously innovate to improve our services and enhance the passenger experience.",
+                image: "https://picsum.photos/seed/innovation/800/400.jpg",
+                commitments: [
+                    "Investment in new technology",
+                    "Continuous improvement programs",
+                    "Research and development",
+                    "Creative problem solving",
+                    "Adaptation to market changes",
+                    "Future-focused strategies"
+                ]
+            },
+            customer: {
+                title: "Customer Focus",
+                description: "Our customers are at the heart of everything we do. We strive to exceed their expectations.",
+                image: "https://picsum.photos/seed/customer/800/400.jpg",
+                commitments: [
+                    "Personalized service",
+                    "24/7 customer support",
+                    "Feedback-driven improvements",
+                    "Loyalty programs",
+                    "Comfort-focused amenities",
+                    "Exceptional in-flight experience"
+                ]
+            },
+            sustainability: {
+                title: "Sustainability",
+                description: "We're committed to reducing our environmental impact and promoting sustainable aviation.",
+                image: "https://picsum.photos/seed/sustainability/800/400.jpg",
+                commitments: [
+                    "Carbon offset programs",
+                    "Fuel-efficient aircraft",
+                    "Waste reduction initiatives",
+                    "Renewable energy use",
+                    "Sustainable sourcing",
+                    "Environmental partnerships"
+                ]
+            },
+            citizenship: {
+                title: "Global Citizenship",
+                description: "We believe in giving back to the communities we serve through various initiatives.",
+                image: "https://picsum.photos/seed/citizenship/800/400.jpg",
+                commitments: [
+                    "Community outreach programs",
+                    "Educational initiatives",
+                    "Disaster relief support",
+                    "Employee volunteering",
+                    "Local partnerships",
+                    "Social responsibility projects"
+                ]
+            }
+        };
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'white';
+                navLinks.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                navLinks.style.padding = '20px';
+            }
+        });
+
+        // Booking Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const returnGroup = document.getElementById('returnGroup');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                if (btn.dataset.tab === 'roundtrip') {
+                    returnGroup.style.display = 'block';
+                } else {
+                    returnGroup.style.display = 'none';
+                }
+            });
+        });
+
+        // Fleet Slider - Enhanced
+        const fleetContainer = document.getElementById('fleetContainer');
+        const prevFleet = document.getElementById('prevFleet');
+        const nextFleet = document.getElementById('nextFleet');
+        const fleetDots = document.getElementById('fleetDots');
+        let currentFleet = 0;
+        const fleetCards = document.querySelectorAll('.fleet-card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        // Create dots for fleet slider
+        function createFleetDots() {
+            fleetDots.innerHTML = '';
+            fleetCards.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('fleet-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => showFleet(index));
+                fleetDots.appendChild(dot);
+            });
+        }
+        
+        createFleetDots();
+
+        function showFleet(index) {
+            if (index < 0) {
+                currentFleet = fleetCards.length - 1;
+            } else if (index >= fleetCards.length) {
+                currentFleet = 0;
+            } else {
+                currentFleet = index;
+            }
+            
+            fleetContainer.style.transform = `translateX(-${currentFleet * 100}%)`;
+            
+            // Update dots
+            document.querySelectorAll('.fleet-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentFleet);
+            });
+        }
+
+        prevFleet.addEventListener('click', () => {
+            showFleet(currentFleet - 1);
+        });
+
+        nextFleet.addEventListener('click', () => {
+            showFleet(currentFleet + 1);
+        });
+
+        // Fleet Filter Functionality
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active filter button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                // Filter fleet cards
+                fleetCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Reset to first visible card
+                currentFleet = 0;
+                showFleet(0);
+                
+                // Recreate dots for filtered cards
+                const visibleCards = Array.from(fleetCards).filter(card => 
+                    filter === 'all' || card.dataset.category === filter
+                );
+                
+                fleetDots.innerHTML = '';
+                visibleCards.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('fleet-dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => showFleet(index));
+                    fleetDots.appendChild(dot);
+                });
+            });
+        });
+
+        // Modal Functions
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        function showModal(title, content, image) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            modalImage.src = image;
+            modal.style.display = 'flex';
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Service Cards Click Handler
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('btn')) {
+                    const service = card.dataset.service;
+                    const details = serviceDetails[service];
+                    
+                    const content = `
+                        <div class="service-details">
+                            <p>${details.description}</p>
+                            <h4>Features:</h4>
+                            <ul>
+                                ${details.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                            </ul>
+                            <div class="price-box">
+                                <h4>Price:</h4>
+                                <span class="price-tag">${details.price}</span>
+                            </div>
+                            <button class="btn" onclick="bookService('${service}')">Book Now</button>
+                        </div>
+                    `;
+                    
+                    showModal(details.title, content, details.image);
+                }
+            });
+        });
+
+        // Destination Cards Click Handler
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const destination = card.dataset.destination;
+                const details = destinationDetails[destination];
+                
+                const content = `
+                    <div class="service-details">
+                        <p>${details.description}</p>
+                        <h4>Highlights:</h4>
+                        <ul>
+                            ${details.highlights.map(highlight => `<li><i class="fas fa-star"></i> ${highlight}</li>`).join('')}
+                        </ul>
+                        <div class="price-box">
+                            <h4>Special Offer:</h4>
+                            <span class="price-tag">${details.price}</span>
+                            <p style="margin-top: 10px; color: var(--success-color);"><i class="fas fa-tag"></i> ${details.duration}</p>
+                        </div>
+                        <button class="btn" onclick="bookDestination('${destination}', '${details.price}')">Book Now</button>
+                    </div>
+                `;
+                
+                showModal(details.title, content, details.image);
+            });
+        });
+
+        // Fleet Cards Click Handler - Enhanced
+        document.querySelectorAll('.fleet-card-content').forEach(card => {
+            card.addEventListener('click', () => {
+                const aircraft = card.dataset.aircraft;
+                const details = fleetDetails[aircraft];
+                
+                const content = `
+                    <div class="service-details">
+                        <p>${details.description}</p>
+                        <h4>Specifications:</h4>
+                        <ul>
+                            ${Object.entries(details.specifications).map(([key, value]) => `<li><i class="fas fa-info-circle"></i> <strong>${key}:</strong> ${value}</li>`).join('')}
+                        </ul>
+                        <h4>Features:</h4>
+                        <ul>
+                            ${details.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                        </ul>
+                        <h4>Routes:</h4>
+                        <p>${details.routes}</p>
+                        <div class="price-box">
+                            <h4>Available Classes:</h4>
+                            ${Object.entries(details.classes).map(([cls, price]) => `<p><i class="fas fa-chair"></i> <strong>${cls}:</strong> ${price}</p>`).join('')}
+                        </div>
+                        <button class="btn" onclick="bookAircraft('${aircraft}')">Select Aircraft</button>
+                    </div>
+                `;
+                
+                showModal(details.title, content, details.image);
+            });
+        });
+
+        // Team Members Click Handler
+        document.querySelectorAll('.team-member').forEach(member => {
+            member.addEventListener('click', () => {
+                const memberKey = member.dataset.member;
+                const details = teamDetails[memberKey];
+                
+                const content = `
+                    <div class="service-details">
+                        <p style="color: var(--pia-green); margin-bottom: 15px; font-size: 1.1rem;">${details.role}</p>
+                        <p>${details.bio}</p>
+                        <h4 style="margin-top: 20px; margin-bottom: 10px;">Achievements:</h4>
+                        <ul>
+                            ${details.achievements.map(achievement => `<li><i class="fas fa-trophy" style="color: var(--pia-green);"></i> ${achievement}</li>`).join('')}
+                        </ul>
+                        <h4 style="margin-top: 20px; margin-bottom: 10px;">Expertise:</h4>
+                        <ul>
+                            ${details.expertise.map(exp => `<li><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> ${exp}</li>`).join('')}
+                        </ul>
+                        <div style="margin-top: 20px;">
+                            <button class="btn" onclick="contactTeamMember('${memberKey}')">Contact</button>
+                        </div>
+                    </div>
+                `;
+                
+                showModal(details.name, content, details.image);
+            });
+        });
+
+        // Value Cards Click Handler
+        document.querySelectorAll('.value-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const valueKey = card.dataset.value;
+                const details = valueDetails[valueKey];
+                
+                const content = `
+                    <div class="service-details">
+                        <p>${details.description}</p>
+                        <h4>Our Commitments:</h4>
+                        <ul>
+                            ${details.commitments.map(commitment => `<li><i class="fas fa-check"></i> ${commitment}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                showModal(details.title, content, details.image);
+            });
+        });
+
+        // Booking Functions
+        function bookService(service) {
+            modal.style.display = 'none';
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            
+            // Pre-fill booking form
+            setTimeout(() => {
+                const serviceField = document.createElement('input');
+                serviceField.type = 'hidden';
+                serviceField.name = 'service';
+                serviceField.value = service;
+                document.getElementById('bookingForm').appendChild(serviceField);
+            }, 500);
+        }
+
+        function bookDestination(destination, price) {
+            modal.style.display = 'none';
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            
+            // Pre-fill booking form
+            setTimeout(() => {
+                document.getElementById('to').value = destination.charAt(0).toUpperCase() + destination.slice(1);
+            }, 500);
+        }
+
+        function bookAircraft(aircraft) {
+            modal.style.display = 'none';
+            showModal('Aircraft Selected', `<p>${aircraft} has been selected for your journey. Please proceed with booking.</p>`, fleetDetails[aircraft].image);
+        }
+
+        function contactTeamMember(member) {
+            modal.style.display = 'none';
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            
+            // Pre-fill contact form
+            setTimeout(() => {
+                const details = teamDetails[member];
+                document.getElementById('subject').value = `Message for ${details.name} - ${details.role}`;
+            }, 500);
+        }
+
+        // Form Validation
+        function validateForm(form) {
+            let isValid = true;
+            const inputs = form.querySelectorAll('.form-control[required]');
+            
+            inputs.forEach(input => {
+                const errorMsg = input.parentElement.querySelector('.error-message');
+                
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    if (errorMsg) errorMsg.style.display = 'block';
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                    if (errorMsg) errorMsg.style.display = 'none';
+                }
+                
+                // Email validation
+                if (input.type === 'email' && input.value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        input.classList.add('error');
+                        if (errorMsg) errorMsg.style.display = 'block';
+                        isValid = false;
+                    }
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Booking Form Submission
+        const bookingForm = document.getElementById('bookingForm');
+        const bookingSpinner = document.getElementById('bookingSpinner');
+
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!validateForm(bookingForm)) {
+                return;
+            }
+            
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const departure = document.getElementById('departure').value;
+            const passengers = document.getElementById('passengers').value;
+            const travelClass = document.getElementById('class').value;
+            
+            // Show spinner
+            bookingSpinner.style.display = 'block';
+            
+            // Simulate backend processing
+            setTimeout(() => {
+                bookingSpinner.style.display = 'none';
+                
+                const content = `
+                    <div class="service-details">
+                        <h3>Booking Confirmed! ✈️</h3>
+                        <div style="background: var(--light-bg); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                            <p><strong>From:</strong> ${from}</p>
+                            <p><strong>To:</strong> ${to}</p>
+                            <p><strong>Departure:</strong> ${departure}</p>
+                            <p><strong>Passengers:</strong> ${passengers}</p>
+                            <p><strong>Class:</strong> ${travelClass}</p>
+                            <p><strong>Booking ID:</strong> #${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                        </div>
+                        <p style="color: var(--success-color);"><i class="fas fa-check-circle"></i> Your booking has been confirmed! Check your email for details.</p>
+                        <button class="btn" onclick="modal.style.display='none'">Close</button>
+                    </div>
+                `;
+                
+                showModal('Booking Successful!', content, 'https://picsum.photos/seed/booking/800/400.jpg');
+                bookingForm.reset();
+            }, 2000);
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const contactSpinner = document.getElementById('contactSpinner');
+        const contactSuccess = document.getElementById('contactSuccess');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!validateForm(contactForm)) {
+                return;
+            }
+            
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Show spinner
+            contactSpinner.style.display = 'block';
+            
+            // Simulate backend processing
+            setTimeout(() => {
+                contactSpinner.style.display = 'none';
+                contactSuccess.style.display = 'block';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    contactSuccess.style.display = 'none';
+                }, 5000);
+                
+                contactForm.reset();
+            }, 1500);
+        });
+
+        // Newsletter Form Submission
+        const newsletterForm = document.getElementById('newsletterForm');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            const content = `
+                <div class="service-details">
+                    <h3>Subscription Successful! 🎉</h3>
+                    <p>Thank you for subscribing to our newsletter!</p>
+                    <p>You will receive the latest updates and exclusive offers at:</p>
+                    <p style="background: var(--light-bg); padding: 10px; border-radius: 5px; margin: 10px 0;">${email}</p>
+                    <button class="btn" onclick="modal.style.display='none'">Close</button>
+                </div>
+            `;
+            
+            showModal('Newsletter Subscription', content, 'https://picsum.photos/seed/newsletter/800/400.jpg');
+            newsletterForm.reset();
+        });
+
+        // Share Button Functionality
+        const shareBtn = document.getElementById('shareBtn');
+        const shareOptions = document.getElementById('shareOptions');
+        
+        shareBtn.addEventListener('click', () => {
+            shareOptions.classList.toggle('show');
+        });
+        
+        // Close share options when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!shareBtn.contains(e.target) && !shareOptions.contains(e.target)) {
+                shareOptions.classList.remove('show');
+            }
+        });
+        
+        // Share option handlers
+        document.querySelectorAll('.share-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const platform = option.dataset.platform;
+                const url = window.location.href;
+                const title = 'Pia\'s Airplane Plan - Your Journey, Our Responsibility';
+                const text = 'Experience a safe and comfortable journey with Pia\'s Airplane Plan';
+                
+                switch(platform) {
+                    case 'facebook':
+                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+                        break;
+                    case 'twitter':
+                        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+                        break;
+                    case 'linkedin':
+                        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+                        break;
+                    case 'whatsapp':
+                        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+                        break;
+                    case 'email':
+                        window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text + ' ' + url)}`;
+                        break;
+                    case 'link':
+                        navigator.clipboard.writeText(url).then(() => {
+                            showModal('Link Copied', '<p>The website link has been copied to your clipboard!</p><button class="btn" onclick="modal.style.display=\'none\'">Close</button>', 'https://picsum.photos/seed/copy/800/400.jpg');
+                        });
+                        break;
+                }
+                
+                shareOptions.classList.remove('show');
+            });
+        });
+
+        // Animated Counter for Stats
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const animate = () => {
+                    const value = +counter.getAttribute('data-target');
+                    const data = +counter.innerText;
+                    const time = value / speed;
+
+                    if (data < value) {
+                        counter.innerText = Math.ceil(data + time);
+                        setTimeout(animate, 1);
+                    } else {
+                        counter.innerText = value.toLocaleString();
+                    }
+                }
+                animate();
+            });
+        }
+
+        // Check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Trigger counter animation when stats section is visible
+        let statsAnimated = false;
+        window.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.stats');
+            if (statsSection && !statsAnimated && isInViewport(statsSection)) {
+                animateCounter();
+                statsAnimated = true;
+            }
+        });
+
+        // Scroll Animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const checkFade = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize Date Inputs with Today's Date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departure').setAttribute('min', today);
+        document.getElementById('return').setAttribute('min', today);
+        document.getElementById('departure').value = today;
+        
+        // Set return date to tomorrow by default
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('return').value = tomorrow.toISOString().split('T')[0];
+
+        // Add input event listeners for real-time validation
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.value.trim()) {
+                    input.classList.remove('error');
+                    const errorMsg = input.parentElement.querySelector('.error-message');
+                    if (errorMsg) errorMsg.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
